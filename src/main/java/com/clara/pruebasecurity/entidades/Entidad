@@ -1,0 +1,45 @@
+package com.qsyqsy.ProyectoLibreria.entidades;
+
+Declaramos una entidad: esto avisa que es un objeto que se va a persistir 
+en un repositorio (BD)
+
+@Entity
+public class Generalidades {
+    
+    --DECLARAMOS LOS ATRIBUTOS --
+
+    Declaramos una clave primaria 
+    @Id
+       
+    Declaramos como vamos a inicializar la clave primaria : Manual o Automatica
+    En este caso con un generador de clave automatico con nombre uuid
+    @GeneratedValue(generator = "uuid")
+
+    Declaramos el generador de clave : este usa la estrategía uuid2
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+       
+    MAPEO DE ATRIBUTOS ESPECIALES
+    
+    Declaramos un atributo tipo Enum
+    @Enumerated(EnumType.ORIGIN/STRING) 
+
+    Declaramos un atributo tipo DATE
+    @Temporal(TemporalType.TIME/DATE/TIMESTAMP) 
+    
+    Declaramos un atributo que contiene un objeto pesado 
+    En general de tipo arreglo de bytes[]
+    @Lob
+
+    Declaramos que sólo queremos que se cargue el atributo cuando
+    accedemos a él a través de un get
+    @Basic(fetch = FetchType.LAZY)
+    
+    RELACIONALES 
+    @OneToOne
+    @OneToMany
+    @ManyToOne
+    @ManyToMany
+    
+    --CREAMOS GETTERS Y SETTERS--
+
+}

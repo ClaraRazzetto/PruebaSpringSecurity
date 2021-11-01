@@ -1,0 +1,12 @@
+body{
+    background-color: rgba(146, 66, 82, 0.836);   
+}
+
+a{
+    color: antiquewhite;
+    text-decoration: none;
+}
+
+a:hover{
+    color: rgb(159, 129, 194);
+}

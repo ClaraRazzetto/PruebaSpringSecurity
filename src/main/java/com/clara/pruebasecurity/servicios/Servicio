@@ -1,0 +1,21 @@
+package com.qsyqsy.ProyectoLibreria.servicios;
+
+/*
+Declaramos un Service: se encarga de gestionar la lógica de negocios.
+Trabaja con los repositorios para enviar los resultados de las operaciones 
+de negocio a la base de datos y persistir los objetos
+
+@Service
+public class Generalidades {
+    
+    Esta notacion se emplea para generar la inyección de dependencia de un 
+    tipo de Objeto que pertenece a una clase con @Controller, @Service, @Repository
+    @Autowired 
+    private LibroRepository libroRep;
+
+    --ESCRIBIMOS LOS MÉTODOS NECESARIO--
+
+    @Transactional
+    Se usa para los métodos que generan cambios en la BD como save, edit
+}
+*/

@@ -1,0 +1,21 @@
+spring:
+#Configuracion MySQL
+ datasource:
+    #jdbc:mysql://localhost:3306/NombreBD...Aca van parámetros para evitar errores, zona horia, caracteres, etc.
+  url: jdbc:mysql://localhost:3306/persona2?allowPublicKeyRetrieval=true&useSSL=false&useTimezone=true&serverTimezone=GMT&characterEncoding=UTF-8
+  username: root
+  password: root
+  driver-class-name: com.mysql.cj.jdbc.Driver
+#Configuracion Creacion de tablas (Hibernate)
+ jpa:
+  #para ver las consultas en consolas
+  show-sql: true
+  hibernate:
+   #creacion y actualización de la BD
+   ddl-auto: update
+  properties:
+   hibernate:
+    dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+#Para que thymeleaf no guarde datos en cache
+ thymeleaf:
+  cache: false

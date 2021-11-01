@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+    <nav th:replace="/fragments/navbar :: navbar"></nav>
+    <header  class="align-items-center text-center m-5">
+        <h1>Usuario logeado con exito!</h1>
+        <h2 th:if="${session.usuariosession != null}" th:text="${session.usuariosession.nombre + ' ' + session.usuariosession.apellido}"></h2>
+        <button class="btn btn-dark px-4 py-1">
+            <a th:href="@{/cliente/editar}+'?id='+${session.usuariosession.id}" sec:authorize="hasRole('ROLE_CLIENTE')">Configura tu perfil!</a>
+            <a th:href="@{/persona/editar(id=__${session.usuariosession.id}__)}" sec:authorize="hasRole('ROLE_PERSONA')">Configura tu perfil!</a>
+        </button>
+    </header>    
+    </body>
+</html>

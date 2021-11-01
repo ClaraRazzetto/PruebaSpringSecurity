@@ -1,0 +1,20 @@
+package com.qsyqsy.ProyectoLibreria.repositorios;
+
+Declaramos un repositorio: este se encarga de la comunicación con la BD
+Tendrá metodos para editar, ingresar, eliminar, etc y consultas
+
+@Repository
+
+Interface que extiende de JpaRepository<Objeto, tipo del Id>
+El JapaRepository tiene metodos para implementar como findById, findAll,etc.
+
+public interface Generalidades extends JpaRepository<Libro, String> {
+
+    Para crear una consulta 
+    @Query("Consulta en SQL");
+    public TipodeDatoRetorno NombreFuncion(@Param("NombreParametroEnLaQuery") TipoDeDato NombreParametroQueRecibimos);
+    
+    Ejemplo:
+    @Query("SELECT l FROM Libro l WHERE l.id = :id")
+    public Optional<Libro> findId(@Param("id") String id);
+}

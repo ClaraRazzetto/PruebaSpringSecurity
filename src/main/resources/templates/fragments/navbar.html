@@ -1,0 +1,11 @@
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <!--Redireccionamos a la pag principal con th:href-->
+        <a class="navbar-brand" th:href="@{/inicio}" sec:authorize="isAuthenticated()">Inicio</a>
+        <a class="navbar-brand" th:href="@{/persona/list}" sec:authorize="hasRole('ROLE_PERSONA')">Lista de personas</a>
+        <a class="navbar-brand" th:href="@{persona/registro}">Registrate como Persona</a>
+        <a class="navbar-brand" th:href="@{cliente/registro}">Registrate como Cliente</a>
+        <a class="navbar-brand" th:href="@{/login}" sec:authorize="!isAuthenticated()">Inicia sesión</a>
+        <a class="navbar-brand" th:href="@{/logout}"sec:authorize="isAuthenticated()">Cerrar sesión</a>
+    </div>
+</nav>

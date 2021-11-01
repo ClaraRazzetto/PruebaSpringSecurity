@@ -1,0 +1,117 @@
+package com.qsyqsy.ProyectoLibreria.controladores;
+
+La clase controller es la que se encarga de la comunicación entre le usuario
+y la aplicación, es decir, conectan las interfaces de usuario html con los servicios
+
+- @RequestMapping: proporciona el mapeo entre la ruta de petición 
+y el método del controlador.
+En este caso, se le asigna la pag de inicio
+si la petición es sobre la ruta localhost:8080/
+
+@Controller
+@RequestMapping("/")
+public class Controller {
+
+    @GetMapping("/listado") : asigna una solicitud GET de HTTP al método
+    Respondiendo a la url especificada, en este caso, "/listado" y ejecuta
+    el método
+	public String listar(){
+		return "lista.html"
+	}
+    
+    @PostMapping("/save") : asigna una solicitud POST de HTTP al método.
+    
+    --------------------------------------------------------------------       
+    @RequestParam : se usa para vincular los parámetros de una petición HTTP
+    a los argumentos de un método.
+    
+    -NOTA: podemos especificar si no es necesario recibir el parámetro
+    @RequestParam(required = true/false)
+
+    EJEMPLO: completamos el argumento del método con el parámetro
+    de consulta ISBN que viene en la URL
+    http://localhost:8080/libro?ISBN=900848893
+    
+    @GetMapping("/libro")
+    public void mostrarLibro(@RequestParam("ISBN") String ISBN){
+        System.out.println(ISBN);
+    }
+
+    En el formulario:
+	La etiqueta desde la que enviamos el parámetro debe tener el atributo name="nombreParámetro" 
+	donde el nombre del parámetro debe coincidir con el nombre del atributo del método. 
+	ej: <input type="text" name="ISBN" ..>
+    --------------------------------------------------------------------
+
+    @PathVariable: se usa para recuperar datos de la URL. La diferencia
+    con RequestParam es que se usa para extraer parámetros de consulta
+    permitiendo al controlador manejar una petición HTTP con URLs parametrizadas,
+    es decir, que tienen parámetros como parte de la ruta
+    http://localhost:8080/libro/900848893 
+    
+    EJEMPLO: aca se extrae la parte de la url que contiene el ISBN
+    y se completa en el argumento del método.
+    @GetMapping("/libro{ISBN}")
+    public void mostrarLibro(@PathVariable("ISBN") String ISBN){
+        System.out.println(ISBN);
+    }
+
+    --------------------------------------------------------------------
+    MODELMAP : este objeto con su método .addAtribute o .put nos permite enviar 
+    datos a nuestro HTML
+
+    model.addAtribute(String variable, Objeto nombreObjeto)
+    model.put(String variable, Objeto nombreObjeto)
+    
+    -El String variable es el identificador con el que el objeto
+    va a viajar al HTML y tiene que coincidir con la variable de
+    Thymeleaf.
+    
+    EJEMPLO:
+    
+    --HTML : <p>Hola<span th:text=”${nombre}”></p>
+    
+    --CONTROLADOR
+    
+    @GetMapping("/")
+    public String Home(ModelMap model){
+    	String nombre = "Fernando";
+    	model.addAtribute("nombre", nombre);
+	model.put("nombre", nombre);
+    	return "index.html";
+    }
+    
+    --------------------------------------------------------------------
+    
+    @ModelAtributte : se usa para vincular datos de un formulario de Spring
+    con la capa backend.
+    
+    EJEMPLO: vinculamos el objeto persona al formulario y este será inicializado
+    con los valores por defecto.
+    
+    @GetMapping("/formulario")
+        public String formulario(@ModelAttribute("persona") Persona persona){
+        return "formulario";
+    }
+    
+    Usando las notaciones th:object y th:field en el formulario. 
+
+    --------------------------------------------------------------------
+    
+    RedirectAttributes : usamos este objeto para redireccionar atributos 
+    de un url a otro usando su metodo addFlashAttribute
+
+    EJEMPLO: redireccionamos los mensajes de exito y error.
+
+    @PostMapping("/save")
+    public String save(ModelMap model, RedirectAttributes redirectAttributes, @ModelAttribute Libro libro) {
+        try {
+            libroServ.save(libro);
+            redirectAttributes.addFlashAttribute("success", "Se ha registrado con exito!");
+        } catch (ServiceException ex) {
+            redirectAttributes.addFlashAttribute("error", ex.getMessage());
+        }
+        return "redirect:/libro/list";
+    }
+    
+}
